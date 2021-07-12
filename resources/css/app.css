@@ -1,0 +1,128 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.card {
+    @apply p-6 bg-white shadow-md sm:rounded-lg overflow-x-auto max-w-full;
+}
+
+.option {
+    @apply inline-block p-4 ml-0 m-2 font-semibold text-primary border-primary border-2 rounded-xl hover:bg-primary hover:text-white ease-in-out duration-300;
+}
+
+.checkbox {
+    @apply rounded border-gray-300 text-primary shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-30;
+}
+
+.root {
+    @apply flex gap-4 flex-col md:flex-row md:justify-center md:items-start;
+}
+
+.input {
+    @apply rounded-md shadow-sm border-gray-300 focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-30;
+}
+
+.input:disabled {
+    @apply text-gray-400;
+}
+
+.btn {
+    @apply px-4 py-2 text-center text-xs uppercase  font-semibold tracking-widest rounded-md transition ease-in-out duration-150 disabled:opacity-25;
+}
+
+.btn-black {
+    @apply text-white bg-gray-800 border border-transparent
+        hover:bg-primary focus:outline-none focus:border-primary focus:ring ring-primary focus:ring-opacity-30;
+}
+
+.btn-gray {
+    @apply text-gray-800  bg-gray-200 border border-gray-600 hover:bg-primary focus:outline-none focus:border-primary focus:ring ring-primary focus:ring-opacity-30;
+}
+
+.btn-a {
+    @apply border focus:ring-2  inline-block rounded-lg px-4  py-1 duration-500 ease-in-out;
+}
+
+.btn-a-blue {
+    @apply border-primary bg-primary bg-opacity-10 text-primary hover:text-white hover:bg-opacity-100;
+}
+
+.btn-a-red {
+    @apply border-red-800 bg-red-300 text-red-800 hover:text-red-100 hover:bg-red-800 ring-red-500;
+}
+
+.btn-a-gray {
+    @apply border-gray-600 bg-gray-100 text-gray-600 hover:text-white hover:bg-gray-400;
+}
+
+.label {
+    @apply block font-medium text-sm text-gray-700;
+}
+
+.tbl td {
+    @apply p-2;
+}
+
+.tbl thead tr {
+    @apply text-lg font-semibold text-gray-700 border-b-2 border-primary;
+}
+
+.tbl tbody tr {
+    @apply text-gray-800 border-b-2 border-gray-200;
+}
+
+th {
+    @apply text-left px-2;
+}
+
+h1 {
+    @apply mb-2 text-2xl font-semibold text-gray-800 leading-tight;
+}
+
+h2 {
+    @apply text-xl font-semibold text-gray-800 leading-tight;
+}
+
+h3 {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+text {
+    @apply text-gray-700 font-medium;
+}
+
+.property-content {
+    @apply max-w-xs rounded-lg border-2 border-gray-200 py-1 px-4
+    hover:border-primary hover:text-primary ease-in duration-300 font-semibold text-gray-700;
+}
+
+.property-label {
+    @apply rounded-lg border-2 bg-gray-200 py-1 px-4 ease-in duration-100  text-gray-700;
+}
+
+.property-list {
+    @apply grid grid-cols-2 gap-2 ;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.loader {
+    border: solid #f3f3f3;
+    border-top: solid aquamarine;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

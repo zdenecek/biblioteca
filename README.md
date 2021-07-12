@@ -1,0 +1,1 @@
+# Biblioteca - správce školní knihovny
