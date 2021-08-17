@@ -15894,22 +15894,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }), {}, {
         'Vydavatel': v.publisher,
         'Vydáno': v.publishedDate,
-        'Popis': v.description,
         'Počet stran': v.pageCount,
         'Kategorie': (_v$categories = v.categories) === null || _v$categories === void 0 ? void 0 : _v$categories.join(", ")
       });
     },
+    googleBooksVolumeDescription: function googleBooksVolumeDescription() {
+      var _this$book2, _this$book2$googleBoo;
+
+      return (_this$book2 = this.book) === null || _this$book2 === void 0 ? void 0 : (_this$book2$googleBoo = _this$book2.googleBooksData) === null || _this$book2$googleBoo === void 0 ? void 0 : _this$book2$googleBoo.volumeInfo.description;
+    },
     link: function link() {
-      var _this$book2, _this$book2$googleBoo, _ref, _v$infoLink;
+      var _this$book3, _this$book3$googleBoo, _ref, _v$infoLink;
 
       console.log(this.book);
-      var v = (_this$book2 = this.book) === null || _this$book2 === void 0 ? void 0 : (_this$book2$googleBoo = _this$book2.googleBooksData) === null || _this$book2$googleBoo === void 0 ? void 0 : _this$book2$googleBoo.volumeInfo;
+      var v = (_this$book3 = this.book) === null || _this$book3 === void 0 ? void 0 : (_this$book3$googleBoo = _this$book3.googleBooksData) === null || _this$book3$googleBoo === void 0 ? void 0 : _this$book3$googleBoo.volumeInfo;
       return (_ref = (_v$infoLink = v.infoLink) !== null && _v$infoLink !== void 0 ? _v$infoLink : v.previewLink) !== null && _ref !== void 0 ? _ref : v.canonicalVolumeLink;
     },
     imageLink: function imageLink() {
-      var _this$book3, _this$book3$googleBoo, _this$book3$googleBoo2, _ref2, _ref3, _ref4, _ref5, _ref6, _i$thumbnail;
+      var _this$book4, _this$book4$googleBoo, _this$book4$googleBoo2, _ref2, _ref3, _ref4, _ref5, _ref6, _i$thumbnail;
 
-      var i = (_this$book3 = this.book) === null || _this$book3 === void 0 ? void 0 : (_this$book3$googleBoo = _this$book3.googleBooksData) === null || _this$book3$googleBoo === void 0 ? void 0 : (_this$book3$googleBoo2 = _this$book3$googleBoo.volumeInfo) === null || _this$book3$googleBoo2 === void 0 ? void 0 : _this$book3$googleBoo2.imageLinks;
+      var i = (_this$book4 = this.book) === null || _this$book4 === void 0 ? void 0 : (_this$book4$googleBoo = _this$book4.googleBooksData) === null || _this$book4$googleBoo === void 0 ? void 0 : (_this$book4$googleBoo2 = _this$book4$googleBoo.volumeInfo) === null || _this$book4$googleBoo2 === void 0 ? void 0 : _this$book4$googleBoo2.imageLinks;
       if (i) return (_ref2 = (_ref3 = (_ref4 = (_ref5 = (_ref6 = (_i$thumbnail = i.thumbnail) !== null && _i$thumbnail !== void 0 ? _i$thumbnail : i.smallThumbnail) !== null && _ref6 !== void 0 ? _ref6 : i.thumbnail) !== null && _ref5 !== void 0 ? _ref5 : i.small) !== null && _ref4 !== void 0 ? _ref4 : i.medium) !== null && _ref3 !== void 0 ? _ref3 : i.large) !== null && _ref2 !== void 0 ? _ref2 : i.extraLarge;
     }
   }
@@ -16326,6 +16330,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sendData: _.throttle(function () {
+      var _this = this;
+
       axios.post(this.importRoute, {
         books: this.csv,
         import_name: this.$refs.importName.value
@@ -16333,6 +16339,10 @@ __webpack_require__.r(__webpack_exports__);
         alertify.success(response.data.message);
       })["catch"](function (error) {
         alertify.error('Import se nezdařil: ' + error);
+
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors;
+        }
       });
     }, 2000)
   }
@@ -16534,6 +16544,12 @@ var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h3", {
+  "class": "mt-4"
+}, "Popis", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$book$section;
 
@@ -16574,7 +16590,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["href"])])], 64
   /* STABLE_FRAGMENT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $options.imageLink ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("img", {
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $options.googleBooksVolumeDescription ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.googleBooksVolumeDescription), 1
+  /* TEXT */
+  )], 64
+  /* STABLE_FRAGMENT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $options.imageLink ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("img", {
     key: 0,
     src: $options.imageLink,
     alt: 'Obrázek přebalu knihy ' + $props.book.title,
@@ -16703,7 +16725,11 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_17 = {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Číslování polí začíná od 0.", -1
+/* HOISTED */
+);
+
+var _hoisted_18 = {
   "class": "mt-4 text-red-600"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -16755,7 +16781,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       },
       maturita: {
         required: false,
-        label: 'Maturitní četba**'
+        label: 'Maturitní četba (1/0)**'
       },
       book_section_id: {
         required: false,
@@ -16799,7 +16825,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["modelValue", "text"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_ctx.csv.length > 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.csv.slice(0, 5), function (book) {
+  , ["modelValue", "fields", "text"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [_ctx.csv.length > 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.csv.slice(0, 5), function (book) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(book.title), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)([book.author_first_name, book.author_middle_name, book.author_last_name].join(" ")), 1
@@ -16816,11 +16842,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.sendData && $options.sendData.apply($options, arguments);
     }),
     "class": "btn btn-black mt-8 w-full"
-  }, " Odeslat ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.hasErrors ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Celkem chybných polí: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Object.keys(_ctx.errors).length), 1
+  }, " Odeslat ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $options.hasErrors ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_15, [_hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Celkem chybných polí: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(Object.keys(_ctx.errors).length), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_17, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.errors, function (errs, field) {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_18, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.errors, function (errs, field) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(errs, function (error) {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error), 1
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error) + " [" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(field) + "] ", 1
       /* TEXT */
       );
     }), 256

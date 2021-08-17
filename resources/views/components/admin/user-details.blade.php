@@ -6,5 +6,5 @@
     <x-property name="Email" :value="$user->email"/>
     <x-property name="Kód" :value="$user->code"/>
     <x-property name="Role" :value="$user->role->name"/>
-    <x-property name="Aktivní výpůjčky" :value="$user->active_borrows->count()"/>
+    <x-property name="Aktivní výpůjčky" :value="$user->active_borrows"/>
 </div>

@@ -45,6 +45,10 @@
           </div>
         </template>
     </div>
+    <template v-if="googleBooksVolumeDescription">
+    <h3 class="mt-4">Popis</h3>
+    <p>{{ googleBooksVolumeDescription }}</p>
+    </template>
     </div>
   </div>
   <img v-if="imageLink" :src="imageLink" :alt="'Obrázek přebalu knihy ' + book.title" class="shadow-md sm:rounded-lg max-h-60"/>
@@ -61,10 +65,12 @@ export default {
         ...(v.authors?.length > 1 && { 'Autoři': v.authors.join(', ') }),
         'Vydavatel' : v.publisher,
         'Vydáno' : v.publishedDate,
-        'Popis' : v.description,
         'Počet stran' : v.pageCount,
         'Kategorie' : v.categories?.join(", "),
       }
+    },
+    googleBooksVolumeDescription() {
+      return this.book?.googleBooksData?.volumeInfo.description;
     },
     link() {
       console.log(this.book)

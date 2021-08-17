@@ -26,7 +26,7 @@ class IsIsbn implements Rule
      */
     public function passes($attribute, $value)
     {
-        return IsbnNumber::validate($value);
+        return IsbnNumber::validate((string)$value);
     }
 
     /**

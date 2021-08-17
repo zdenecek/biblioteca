@@ -17,7 +17,7 @@
         isbn: { required: false, label: 'Isbn**' },
         code: { required: true, label: 'Identifikační kód/signatura' },
         collection: { required: true, label: 'Id sbírky' },
-        maturita: { required: false, label: 'Maturitní četba**' },
+        maturita: { required: false, label: 'Maturitní četba (1/0)**' },
         book_section_id: { required: false, label: 'Id sekce**' },
       }"
       :text='text'
@@ -66,11 +66,12 @@
   </div>
   <div v-if="hasErrors" class="card">
   <h1> Chyby při importu </h1>
+  <p> Číslování polí začíná od 0.</p>
   <p> Celkem chybných polí: {{ Object.keys(errors).length }} </p>
   <ul class="mt-4 text-red-600">
       <li v-for="(errs, field) in errors">
         <ul>
-          <li v-for="error in errs"> {{ error }} </li>
+          <li v-for="error in errs"> {{ error }} [{{field}}] </li>
         </ul>
       </li>
   </ul>
@@ -111,7 +112,10 @@ export default {
         .then(response => {
           alertify.success(response.data.message)
       }).catch((error) => {
-        alertify.error('Import se nezdařil: ' + error)
+        alertify.error('Import se nezdařil: ' + error);
+        if(error.response.status === 422) {
+          this.errors = error.response.data.errors;
+        }
       })
     }, 2000),
   }

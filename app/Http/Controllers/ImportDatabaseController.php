@@ -22,11 +22,11 @@ class ImportDatabaseController extends Controller
 			'books.*.author_last_name' => 'required|max:255',
 			'books.*.author_middle_name' => 'max:255',
 			'books.*.author_first_name' => 'max:255',
-            'books.*.isbn' => new IsIsbn(),
+            'books.*.isbn' => ['sometimes', 'nullable', new IsIsbn()],
 			'books.*.collection' => 'required|exists:book_collections,id',
 			'books.*.code' => 'max:255|unique:books,code|distinct',
 			'books.*.section' => 'required_if:books.*.maturita, true',
-			'books.*.maturita' => 'boolean',
+			'books.*.maturita' => 'sometimes|exists:book_sections,id',
 
         ]);
 
