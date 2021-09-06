@@ -30,7 +30,7 @@
 
                                     @endif
                                 </td>
-                                <td> {{ $book->borrows->first() ? $book->borrows->first()->returned_at : null}} </td>
+                                <td> {{ $book->borrows->last() ? $book->borrows->last()->returned_at : null}} </td>
                             </tr>
                         @empty
                             <tr>
