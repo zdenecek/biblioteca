@@ -18,14 +18,14 @@ class BookState
 
 	public function string(User $user = null)
 	{
-		$admin = $user?->hasRole(Role::byString('librarian'));
+		$admin = $user && $user->hasRole(Role::byString('librarian'));
 		$borrows = $this->book->borrows()->where('returned', false);
 		$reservations = $this->book->reservations()->where('reserved_until', '>', now());
 		if ($borrows->exists()) {
 			$borrow = $borrows->latest()->first();
 			$date = $borrow->borrowed_until->format('j. n. Y');
 
-			return $borrow->user->id === $user?->id ?
+			return ($user && $borrow->user->id === $user->id) ?
 				"Knihu máte vypůjčenou do $date"
 				: ($admin ?
 					"Vypůjčená uživatelem {$borrow->user->name} do $date"
@@ -33,7 +33,7 @@ class BookState
 		} elseif ($reservations->exists()) {
 			$reservation = $reservations->first();
 
-			return $reservation->user->id === $user?->id ?
+			return ($user && $reservation->user->id === $user->id) ?
 			'Knihu máte zarezervovanou'
 			: ($admin ?
 				"Knihu si zarezervoval {$reservation->user->name}"

@@ -25,7 +25,7 @@
                         <catalog-filter v-model:active="vm.filterChildren" title="Jen dětská knihovna"
                         :initial="{{json_encode(request()->has('children'))}}"/> </catalog-filter>
 
-                        <div>
+                        </div>
 
 
                     </form>
@@ -40,7 +40,7 @@
                         </thead>
                         <tbody>
 
-                                <tr v-for="book in vm.books" v-if="vm.booksTotal > 0">
+                                <tr v-for="book in vm.books" v-if="vm.booksTotal > 0" :key="book.id">
                                     <td>
                                         <div class="flex justify-between items-center">
                                             <div>
@@ -65,7 +65,7 @@
                                                @{{ book.state }}
                                             </div>
 
-                                            <button v-if="book?.is_available"  class='btn-a btn-a-blue' @click="book.reserve()">
+                                            <button v-if="book?.is_available"  class='btn-a btn-a-blue' @click="vm.reserve(book)">
                                              {{ __('Rezervovat') }}
                                             </button>
 

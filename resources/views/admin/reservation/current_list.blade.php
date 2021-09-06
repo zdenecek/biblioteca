@@ -19,7 +19,6 @@
                     @csrf
                     @method('DELETE')
                     <input type="submit" class="btn-a btn-a-red" value="{{ __('Smazat všechny rezervace') }}">
-
                 </form>
             </div>
         </div>

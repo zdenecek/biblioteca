@@ -15,7 +15,7 @@
                     @foreach (['mon', 'tue', 'wed', 'thu', 'fri'] as $day)
                     <tr>
                     <td class="py-2 pr-4 text-gray-800" x-text="days.{{$day}}" >  </td>
-                    <td class="py-2  font-semibold text-gray-800"> {{$data?->$day ?? __('Zavřeno')}} </td>
+                    <td class="py-2  font-semibold text-gray-800"> {{ ($data->$day ?? __('Zavřeno'))}} </td>
                     </tr>
                     @endforeach
 

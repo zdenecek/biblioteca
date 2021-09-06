@@ -24,9 +24,9 @@
                 <x-property name="Kód" :value="$book->code" />
                 <x-property name="Sbírka" :value="$book->collection->name" />
                 <x-property name="Maturitní četba" :value="$book->maturita? 'Ano' : 'Ne '" />
-                <x-property name="Sekce" :value="$book->section?->name" />
+                <x-property name="Sekce" :value="$book->section ? $book->section->name : null" />
                 <x-property name="Datum přidání do knihovny" :value="$book->created_at->format('j. n. Y')" />
-                <x-property name="Datum poslední úpravy" :value="$book->updated_at?->format('j. n. Y')" />
+                <x-property name="Datum poslední úpravy" :value="$book->updated_at? $book->updated_at->format('j. n. Y') : null" />
 
             </div>
         </div>

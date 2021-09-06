@@ -101,6 +101,7 @@ export default {
             },
             () => {
               alertify.message("Kniha nebyla vypůjčena");
+              this.setState("confirm");
             }
           )
           .set("labels", {
@@ -118,7 +119,7 @@ export default {
     borrowBook() {
       this.selectedBook.borrow(this.selectedUser).then((response) => {
         if (response.data.success) {
-          this.selectedUser.activeBorrows = response.data.borrow.user?.activeBorrows;
+          this.selectedUser = response.data.borrow.user;
           this.clearBook();
         }
       });
@@ -179,9 +180,9 @@ export default {
                 `Úprava uživatele ${this.selectedUser.name} byla úspěšná`
               );
             })
-            .catch(() => {
+            .catch((error) => {
               alertify.error(
-                `Při úpravě uživatele ${this.selectedUser.name} se vyskytla chyba`
+                `Při úpravě uživatele ${this.selectedUser.name} se vyskytla chyba: ${this.selectedUser.errors[0]}`
               );
             });
           this.updateState(send);

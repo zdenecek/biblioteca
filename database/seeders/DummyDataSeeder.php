@@ -69,7 +69,7 @@ class DummyDataSeeder extends Seeder
         {
 			try {
                 Reservation::make($books->get($i), $users->get($i));
-			} catch (Exception) {
+			} catch (Exception $e) {
 
             }
         }

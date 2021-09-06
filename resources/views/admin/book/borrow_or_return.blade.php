@@ -111,7 +111,7 @@
                                     <div class='flex gap-4 items-center'>
                                         <h2 class='mb-0'> Rezervace </h2>
                                         <button class="btn-a btn-a-red"
-                                            @click='vm.clearReservation()'>{{ __('Smazat rezervaci') }}</button>
+                                            @click='vm.selectedBook.clearReservation()'>{{ __('Smazat rezervaci') }}</button>
                                     </div>
                                     <x-property name="Rezervoval">
                                         <span v-text="vm.selectedBook?.current_reservation?.user.name "></span>

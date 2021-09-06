@@ -1,5 +1,5 @@
 @php
-    $isAdmin = Auth::user()?->hasRole(App\Models\Role::byString('librarian')) ;
+    $isAdmin = Auth::user()? Auth::user()->hasRole(App\Models\Role::byString('librarian')) : false;
 @endphp
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">

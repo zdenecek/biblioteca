@@ -19,7 +19,7 @@ Route::middleware("can:librarian")->group(function()
     Route::delete('/reservations', [ReservationController::class, 'clearReservations'])
         ->name('reservation.clear');
 
-    Route::delete('/reservation/{reservation}', [ReservationApiController::class, 'deleteReservation'])
+    Route::delete('/reservation/{reservation}', [ReservationApiController::class, 'destroy'])
         ->name('reservation.delete');
 
     Route::get('/aktualni-rezervace', [ReservationController::class, 'showCurrentReservations'])

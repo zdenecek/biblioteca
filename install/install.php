@@ -142,7 +142,7 @@ class Deployer {
         $key = base64_encode(random_bytes(32))  ;
         return
         "
-APP_NAME=Knihovna
+APP_NAME=Školní knihovna
 APP_ENV=production
 APP_KEY=base64:$key
 APP_DEBUG=false

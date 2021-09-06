@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('notify:overdue')->daily();
+        $schedule->command('reservations:update')->daily();
     }
 
     /**
@@ -36,12 +37,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
-        Artisan::command("remigrate", function() {
-                Artisan::call('migrate:fresh --force');
-                Artisan::call('db:seed');
-                Artisan::call('db:seed --class DummyDataSeeder');
-        });
 
         require base_path('routes/console.php');
     }

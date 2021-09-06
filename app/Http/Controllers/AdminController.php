@@ -18,6 +18,7 @@ class AdminController extends Controller
     {
         if(Schema::hasTable('users')) return;
         Artisan::call('migrate:fresh --force --seed');
+        Artisan::call('storage:link --force');
         return;
     }
 

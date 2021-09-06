@@ -15993,6 +15993,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    reserve: function reserve(book) {
+      book.reserve().then(this.$forceUpdate);
+    },
     pageChanged: function pageChanged(page) {
       this.currentPage = page;
     },
@@ -16016,7 +16019,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return axios.get("/books", {
         params: params
       }).then(function (response) {
-        console.log(response);
         window.history.pushState({}, "".concat(_this.currentPage, " | Katalog \u0161koln\xED knihovny"), window.location.pathname + "?" + new URLSearchParams(params).toString());
         _this.bookData = response.data;
       })["catch"](function (error) {
@@ -16203,6 +16205,8 @@ __webpack_require__.r(__webpack_exports__);
           _this2.selectedBook.clearReservation().then(_this2.borrowBook.bind(_this2)).then(_this2.clearBook.bind(_this2));
         }, function () {
           alertify.message("Kniha nebyla vypůjčena");
+
+          _this2.setState("confirm");
         }).set("labels", {
           ok: "Zrušit rezervaci a půjčit",
           cancel: "Nepůjčovat"
@@ -16221,9 +16225,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.selectedBook.borrow(this.selectedUser).then(function (response) {
         if (response.data.success) {
-          var _response$data$borrow2;
-
-          _this3.selectedUser.activeBorrows = (_response$data$borrow2 = response.data.borrow.user) === null || _response$data$borrow2 === void 0 ? void 0 : _response$data$borrow2.activeBorrows;
+          _this3.selectedUser = response.data.borrow.user;
 
           _this3.clearBook();
         }
@@ -16277,8 +16279,8 @@ __webpack_require__.r(__webpack_exports__);
             school_class: input
           }).then(function () {
             aleritfy.success("\xDAprava u\u017Eivatele ".concat(_this6.selectedUser.name, " byla \xFAsp\u011B\u0161n\xE1"));
-          })["catch"](function () {
-            alertify.error("P\u0159i \xFAprav\u011B u\u017Eivatele ".concat(_this6.selectedUser.name, " se vyskytla chyba"));
+          })["catch"](function (error) {
+            alertify.error("P\u0159i \xFAprav\u011B u\u017Eivatele ".concat(_this6.selectedUser.name, " se vyskytla chyba: ").concat(_this6.selectedUser.errors[0]));
           });
 
           _this6.updateState(send);
@@ -17119,7 +17121,6 @@ function makeBook(bookObject) {
         if (response.data.success) {
           alertify.success("Kniha ".concat(_this2.title, " byla rezervov\xE1na"));
           Object.assign(_this2, response.data.book);
-          return true;
         } else {
           alertify.error("Knihu ".concat(_this2.title, " se nepoda\u0159ilo rezervovat: ").concat(response.data.message));
         }
@@ -17159,12 +17160,12 @@ function makeBook(bookObject) {
       });
     },
     clearReservation: function clearReservation() {
-      var _this3 = this;
-
-      return this.current_reservation.destroy().then(function (response) {
-        _this3.is_reserved = false;
-        return response;
+      var response = null;
+      this.reservations.forEach(function (res) {
+        response = res.destroy();
       });
+      this.is_reserved = false;
+      return response;
     }
   });
 }

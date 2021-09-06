@@ -62,7 +62,8 @@ class ArticleController extends Controller
 		$results = new stdClass();
 
 		foreach ($this->dashboardData as $item) {
-			$results->$item = $data->where('name', $item)->first()?->value;
+			$dataPiece = $data->where('name', $item)->first();
+			$results->$item = $dataPiece ? $dataPiece->value : null;
 		}
 
 		return $results;
@@ -70,6 +71,7 @@ class ArticleController extends Controller
 
 	private function getRules()
 	{
-		return DB::table('article')->where('name', 'rules')->first('value')?->value;
+		$rules = DB::table('article')->where('name', 'rules')->first('value');
+		return $rules ? $rules->value : null;
 	}
 }

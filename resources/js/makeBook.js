@@ -22,7 +22,6 @@ export function makeBook(bookObject) {
           if (response.data.success) {
             alertify.success(`Kniha ${this.title} byla rezervována`);
             Object.assign(this, response.data.book);
-            return true;
           } else {
             alertify.error(`Knihu ${this.title} se nepodařilo rezervovat: ${response.data.message}`);
           }
@@ -70,10 +69,12 @@ export function makeBook(bookObject) {
         });
     },
     clearReservation() {
-      return this.current_reservation.destroy().then((response) => {
-        this.is_reserved = false
-        return response
-      })
+      let response = null;
+      this.reservations.forEach(res => {
+        response = res.destroy();
+      });
+      this.is_reserved = false;
+      return response;
     },
 
   }

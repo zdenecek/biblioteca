@@ -49,6 +49,11 @@ export default {
     },
   },
   methods: {
+    reserve(book) {
+  
+      book.reserve().then(this.$forceUpdate)            
+    },
+
     pageChanged(page) {
       this.currentPage = page;
     },
@@ -66,7 +71,6 @@ export default {
           params,
         })
         .then((response) => {
-          console.log(response)
           window.history.pushState(
             {},
             `${this.currentPage} | Katalog školní knihovny`,
