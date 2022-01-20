@@ -94,7 +94,7 @@ class BookController extends Controller
             'author_middle_name' => 'max:255',
             'author_first_name' => 'max:255',
             'code' => 'max:255|unique:books,code',
-            'isbn' => new IsIsbn(),
+            'isbn' => ['nullable', new IsIsbn()],
             'collection' => 'required|exists:book_collections,id',
             'section' => Rule::requiredIf($request->has('maturita')),
         ]);
@@ -123,7 +123,7 @@ class BookController extends Controller
     {
         $request->validate([
             'title' => 'sometimes|max:255',
-            'isbn' => ['sometimes', new IsIsbn()],
+            'isbn' => ['sometimes', 'nullable', new IsIsbn()],
             'author_first_name' => 'sometimes|max:255',
             'author_middle_name' => 'sometimes|max:255',
             'author_last_name' => 'sometimes|max:255',

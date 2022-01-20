@@ -25,9 +25,6 @@ export default {
     filterChildren() {
       this.updateBooks();
     },
-    currentPage() {
-      this.fetchBooks();
-    },
     searchQuery() {
       this.updateBooks();
     },
@@ -50,12 +47,11 @@ export default {
   },
   methods: {
     reserve(book) {
-  
       book.reserve().then(this.$forceUpdate)            
     },
-
     pageChanged(page) {
       this.currentPage = page;
+      this.fetchBooks();
     },
     fetchBooks() {
       this.bookData = null;
@@ -82,11 +78,10 @@ export default {
           alertify.error("Chyba při načítání knih");
         });
     },
-    fetchBooksDebounced: _.debounce(function () {
-      this.fetchBooks();
-    }, 1500),
+    fetchBooksDebounced: _.debounce(function () { this.fetchBooks(); }, 1500),
     updateBooks() {
       this.bookData = null;
+      this.currentPage = 1;
       this.fetchBooksDebounced();
     },
   },

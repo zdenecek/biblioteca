@@ -25,15 +25,19 @@ class ImportDatabaseController extends Controller
             'books.*.isbn' => ['sometimes', 'nullable', new IsIsbn()],
 			'books.*.collection' => 'required|exists:book_collections,id',
 			'books.*.code' => 'max:255|unique:books,code|distinct',
-			'books.*.section' => 'required_if:books.*.maturita, true',
-			'books.*.maturita' => 'sometimes|exists:book_sections,id',
+			'books.*.maturita' => 'sometimes|nullable|boolean',
+			'books.*.book_section_id' => 'required_if:books.*.maturita,1|nullable|exists:book_sections,id',
 
         ]);
+
+        
 
         DB::transaction(function () use ($request){
             $importId = BookImport::create(['name' => $request->import_name])->id;
             foreach($request->books as $bookData) {
-                Book::create($bookData + ['book_import_id' => $importId]);
+                
+                Book::create($bookData + ['book_import_id' => $importId,
+                 'book_collection_id' => $bookData['collection']]);
             }
         });
 

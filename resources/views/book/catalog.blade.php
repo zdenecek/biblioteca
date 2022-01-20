@@ -48,12 +48,12 @@
                                                     {{-- <x-stickers class="mr-1" :stickers="$book->stickers()->get()">
                                                     </x-stickers> --}}
                                                     <a :href="book.routes['detail']">
-                                                        <span class="text-xl font-semibold text-gray-800 inline-block">
+                                                        <span class="text-xl max-w-md font-semibold text-gray-800 inline-block">
                                                             @{{ book.title }}
                                                         </span>
                                                     </a>
                                                 </div>
-                                                <div>@{{ book.author }}</div>
+                                                <div class="max-w-md">@{{ book.author }}</div>
                                             </div>
 
                                         </div>

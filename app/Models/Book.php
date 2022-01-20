@@ -46,6 +46,7 @@ class Book extends Model
         'author_last_name',
         'maturita',
         'book_collection_id',
+        'book_section_id',
         'code',
         'book_import_id',
     ];
@@ -149,7 +150,11 @@ class Book extends Model
 
     public function setIsbnAttribute($value)
     {
-        $this->attributes['isbn'] = IsbnNumber::make($value);
+        $this->attributes['isbn'] = $value ? IsbnNumber::make($value) : null;
+    }
+
+    public function setMaturitaAttribute($value) {
+        $this->attributes['maturita'] = $value === null ? false : $value;
     }
 
     public function getRoutesAttribute()

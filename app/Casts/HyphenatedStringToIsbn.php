@@ -19,6 +19,7 @@ class HyphenatedStringToIsbn implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes)
     {
+        if ($value === null) return null;
         return IsbnNumber::make($value);
     }
 

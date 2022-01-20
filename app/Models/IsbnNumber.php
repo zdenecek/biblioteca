@@ -16,6 +16,7 @@ class IsbnNumber implements JsonSerializable
 
     public static function make(string $unhyphenatedString)
     {
+        if($unhyphenatedString === null) return null;
         return App::makeWith(IsbnNumber::class, ['unhyphenatedString' => $unhyphenatedString]);
     }
 
