@@ -9,6 +9,7 @@ class Sticker extends Model
 {
     use HasFactory;
 
+
     public static function getStickerables() {
 		return [
             'book_collection' => [
@@ -52,6 +53,14 @@ class Sticker extends Model
         'stickerable_id',
         'stickerable_type',
     ];
+
+    
+    protected $appends = ['name'];
+
+    public function getNameAttribute()
+    {
+        return $this->__toString();
+    }
 
     public function __toString()
     {

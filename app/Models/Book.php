@@ -7,9 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class Book extends Model
@@ -36,6 +34,7 @@ class Book extends Model
         'is_available',
         'state',
         'routes',
+        'stickers',
     ];
 
     protected $fillable = [
@@ -165,11 +164,14 @@ class Book extends Model
         ];
     }
 
+    public function getStickersAttribute()
+    {
+        return $this->stickers()->get();
+    }
+
     public function __toString()
     {
         return "Kniha: {$this->title}";
     }
-
-
 
 }
