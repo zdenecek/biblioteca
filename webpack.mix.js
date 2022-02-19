@@ -12,7 +12,8 @@ const webpack = require('webpack');
  |
  */
 
-mix.js('resources/js/library.js', 'public/js').vue()
+mix.js('resources/js/library.js', 'public/js')
+.vue()
 .postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),

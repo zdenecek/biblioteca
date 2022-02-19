@@ -2,6 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./alertify.min.css";
+@import "./default.css";
+
+
 .card {
     @apply p-6 bg-white shadow-md sm:rounded-lg overflow-x-auto max-w-full;
 }
