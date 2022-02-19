@@ -60,7 +60,7 @@
                     <!-- Book code -->
                     <div>
                         <label for="code" class="label"> {{ __('Identifikační Kód') }} </label>
-                        <input type="text" id="code" class="input w-full" name="code" value="{{ old('code') }}">
+                        <input type="text" id="code" class="input w-full" name="code" value="{{ old('code') }}" required>
                     </div>
 
                     <!-- Book collection -->
@@ -75,7 +75,7 @@
                     </div>
 
                     <!-- Maturita & section block -->
-                    <div class="space-y-2" x-data="{on: false,
+                    <div class="space-y-2" x-data="{on: {{ old('maturita', false) ? 'true' : 'false' }},
                         sections:{{ $sections }}, selected:{{ old('section', 1) }} }">
 
                         <!-- Is maturita -->

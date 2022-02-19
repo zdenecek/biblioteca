@@ -66,6 +66,8 @@ export default {
       if (!this.selectedBook) {
         this.setState("input-book");
       } else if (this.selectedBook.is_borrowed) {
+        this.selectedUser = user(this.selectedBook.current_borrow.user);
+        console.log(this.selectedUser);
         if (!send) {
           this.setState("confirm");
         } else {

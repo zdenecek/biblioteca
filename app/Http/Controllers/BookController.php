@@ -96,7 +96,7 @@ class BookController extends Controller
             'code' => 'max:255|unique:books,code',
             'isbn' => ['nullable', new IsIsbn()],
             'collection' => 'required|exists:book_collections,id',
-            'section' => Rule::requiredIf($request->has('maturita')),
+            'section' => 'required_if:maturita,==,1',
         ]);
 
         $book = Book::create(
@@ -107,13 +107,19 @@ class BookController extends Controller
 			'author_last_name',
 			'code',
 			'isbn',
-			'maturita', ]) + [
-			'book_collection_id' => $request->collection ]
+			'maturita', ])
         );
 
-        if ($request->has('maturita')) {
+        
+		if($request->has('collection')) {
+			$book->collection()->associate(BookCollection::find($request->collection));
+		}
+
+        if ($request->maturita == true) {
             $book->section()->associate(BookSection::find($request->section));
         }
+
+        $book->save();
 
         return redirect()->route('admin.book.add')
         ->with('notifications', [['type' => 'success', 'message' => "Kniha {$request->title} byla úspěšně přidána"]]);
@@ -129,12 +135,12 @@ class BookController extends Controller
             'author_last_name' => 'sometimes|max:255',
             'collection' => 'sometimes|exists:book_collections,id',
             'code' => "sometimes|max:255|unique:books,code,{$book->id}",
-            'section' => Rule::requiredIf($request->has('maturita')),
+            'section' => 'required_if:maturita,==,1',
         ]);
 		if($request->has('collection')) {
 			$book->collection()->associate(BookCollection::find($request->collection));
 		}
-        if ($request->has('maturita')) {
+        if ($request->maturita == true) {
             $book->section()->associate(BookSection::find($request->section));
         }
 

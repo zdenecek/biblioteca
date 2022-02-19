@@ -49,7 +49,7 @@
                                         <div>
                                             <div>
                                                 
-                                                <span class="mr-2 space-x-1" v-if="book.stickers">
+                                                <span class="mr-2 space-x-1" v-if="book.stickers.length > 0">
                                                    
                                                     <span v-for="sticker in book.stickers" :title="sticker.name"
                                                         :style="'position: relative; top: -3px; color:' + (sticker.text_color ?? '#FFFFFF') + ';background-color:' + (sticker.bg_color ?? '#6B8E23') + ';'"

@@ -43,10 +43,11 @@ class BookApiController extends Controller
 		}
 
 		if ($request->filled('q')) {
-			$books = $books
-                ->where('title', 'like', "%{$request->get('q')}%")
+			$books = $books->where(function($query) use ($request) {
+                $query->where('title', 'like', "%{$request->get('q')}%")
 				->orWhere('author', 'like', "%{$request->get('q')}%")
 				->orWhere('isbn', 'like', "%{$request->get('q')}%");
+            });                
 		}
 
         $perPage = $request->get('paginate', $this->perPage);

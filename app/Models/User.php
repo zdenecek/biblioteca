@@ -37,6 +37,12 @@ class User extends Authenticatable
 		'activeBorrows',
 	];
 
+	protected $with = [
+		'role', 
+		'borrows', 
+		'reservations',
+	];
+
 	/**
 	 * The attributes that are mass assignable.
 	 *

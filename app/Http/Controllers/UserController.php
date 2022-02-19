@@ -40,7 +40,6 @@ class UserController extends Controller
     public function findUserByCodeOrEmail(string $identification) {
         return User::where('code', $identification)
             ->orWhere('email', $identification)
-            ->with('role', 'borrows', 'reservations')
             ->firstOrFail();
     }
 
