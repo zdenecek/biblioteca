@@ -67,7 +67,7 @@ class BorrowController extends Controller
     public function showRecentlyReturned(Request $request)
 	{
 		$books = Book::whereHas('borrows', function ($query) {
-			$query->whereDay('returned_at', now()->day);
+			$query->whereDate('returned_at', today());
 		})->paginate(25);
 
 		return view('admin.book.recently_returned', ['books' => $books]);
