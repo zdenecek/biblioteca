@@ -23,7 +23,7 @@ class BookController extends Controller
 
         if ($book->isbn) {
             $response = Http::get("https://www.googleapis.com/books/v1/volumes?q=isbn:{$book->isbn}");
-            if ($response['totalItems'] === 1) {
+            if ($response->ok() && ($response['totalItems'] ?? 0) === 1) {
                 $book->googleBooksData = $response['items'][0];
             }
             Log::debug($book->googleBooksData);
